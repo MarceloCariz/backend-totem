@@ -7,3 +7,6 @@ examsRouter.get('/:rut', getExamenByUser);
 
 
 module.exports = examsRouter
+
+
+

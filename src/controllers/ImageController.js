@@ -1,5 +1,5 @@
 const {request, response} = require('express');
-const Image = require('../models/image');
+const Image = require('../models/Image');
 // const multer = require('multer');
 
 

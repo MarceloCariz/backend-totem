@@ -4,13 +4,13 @@ const express = require('express')
 
 
 
-const ImagenRouter = express.Router();
+const imagenRouter = express.Router();
 
 
-ImagenRouter.post('/upload', subirImagen)
+imagenRouter.post('/upload', subirImagen)
 
-ImagenRouter.delete('/image/:id/delete', eliminarImagen)
-ImagenRouter.get('/', obtenerImagenes)
+imagenRouter.delete('/image/:id/delete', eliminarImagen)
+imagenRouter.get('/', obtenerImagenes)
 
 
-module.exports = ImagenRouter;
+module.exports = imagenRouter;
