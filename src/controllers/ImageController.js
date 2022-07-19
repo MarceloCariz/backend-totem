@@ -1,40 +1,33 @@
 const {request, response} = require('express');
 const Image = require('../models/image');
 // const multer = require('multer');
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const path = require('path');
-const fs = require("fs");
 
 
 
-const subirImagen = async(req=request, res=response) => {
-    const image = new Image;
-    image.nombre = req.body.nombre;
-    image.active = req.body.active;
-    image.img = { data: req.file.filename,  contentType: 'image/png'}
-    
-    try {  
-       await image.save();
-      return res.json('Good')
-               
-    } catch (error) {
-        res.json(error);
-    }
+
+
+const subirImagen = async(req, resp) =>{
+
+    const image = new  Image();
+    image.title = req.body.title;
+    image.active = req.body.active
+    image.filename = req.file.filename;
+    image.path = `${process.env.HOST}/img/uploads/` + req.file.filename;
+    await image.save()
+    resp.json(req.body)
 }
 
+const eliminarImagen = async(req, resp)=>{
+    const image = await Image.find();
+    resp.status(200).json(image)
+}
 
 const obtenerImagenes = async(req, resp)=>{
-    const image = await Image.find({});
-
-    try {
+    const image = await Image.find();
     resp.json(image)
-        
-    } catch (error) {
-        console.log(error)
-    }
 }
 module.exports = {
     subirImagen,
-    obtenerImagenes
+    obtenerImagenes,
+    eliminarImagen
 }

@@ -1,22 +1,16 @@
 const {Router} = require('express');
-const { subirImagen, obtenerImagenes } = require('../controllers/ImageController');
-const multer = require('multer')
+const { subirImagen, obtenerImagenes, eliminarImagen } = require('../controllers/ImageController');
+const express = require('express')
 
 
 
-const ImagenRouter = Router();
-const storage = multer.diskStorage({
-    destination: 'uploads',
-    filename: (req, file, cb)=>{
-        cb(null, file.originalname)
-    }
-  });
- 
-const upload = multer({  storage: storage}).single('img')
+const ImagenRouter = express.Router();
 
 
-ImagenRouter.post('/upload', upload,subirImagen);
-ImagenRouter.get('/', obtenerImagenes);
+ImagenRouter.post('/upload', subirImagen)
+
+ImagenRouter.delete('/image/:id/delete', eliminarImagen)
+ImagenRouter.get('/', obtenerImagenes)
 
 
 module.exports = ImagenRouter;
