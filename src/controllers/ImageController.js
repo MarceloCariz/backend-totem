@@ -9,12 +9,17 @@ const Image = require('../models/Image');
 const subirImagen = async(req, resp) =>{
 
     const image = new  Image();
-    image.title = req.body.title;
-    image.active = req.body.active
-    image.filename = req.file.filename;
-    image.path = `${process.env.HOST}/img/uploads/` + req.file.filename;
-    await image.save()
-    resp.json(req.body)
+    try {
+        image.title = req.body.title;
+        image.active = req.body.active
+        image.filename = req.file.filename;
+        image.path = `${process.env.HOST}/img/uploads/` + req.file.filename;
+        await image.save()
+        resp.json(req.body)
+    } catch (error) {
+        resp.json(error)
+    }
+  
 }
 
 const eliminarImagen = async(req, resp)=>{
@@ -35,17 +40,31 @@ const actualizarImagen = async(req, resp) => {
 
     try {
         const {id} = req.params;
-        const image = await Image.findByIdAndUpdate(
-            {
-                _id: id,
-                title: req.body.title,
-                active: req.body.active,
-                filename: req.file.filename,
-                path: `${process.env.HOST}/img/uploads/ + req.file.filename`
-            }
-        );
+        const image = await Image.findById(id);
+        // const image = await Image.findByIdAndUpdate(
+        //     {
+        //         _id: id,
+        //         title: req.body.title || image.title,
+        //         active: req.body.active || image.active,
+        //         filename: req.file.filename || image.file.filename,
+        //         path: `${process.env.HOST}/img/uploads/ + req.file.filename` || image.path,
+        //     }
+        // );
 
-        resp.json(image);
+        if(req.file){
+            image.path = `${process.env.HOST}/img/uploads/` + req.file.filename;
+            image.filename =  req.file.filename;
+            await image.save()
+        }
+        const nuevaImagen = {
+            ...req.body,
+        }
+
+        const imagenActualizada = await Image.findByIdAndUpdate(id, nuevaImagen,{new: true});
+        resp.json({
+            ok: true,
+            imagen: imagenActualizada
+        });
 
     } catch (error) {
         return resp.status(500).json({msg: `Error update image. Error => ${error}`});
