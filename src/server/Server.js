@@ -15,6 +15,7 @@ class Server {
     // this.app.set("view engine", "ejs");
     this.port = process.env.PORT || 3001;
     this.userPath = "/api/users";
+    this.preguntasPath = "/api/preguntas";
     this.examsPath = "/api/exams";
     this.imagenPath = "/api/imagenes";
 
@@ -48,6 +49,7 @@ class Server {
     this.app.use(this.userPath, require("../routes/user"));
     this.app.use(this.examsPath, require("../routes/exams"));
     this.app.use(this.imagenPath, require("../routes/image"));
+    this.app.use(this.preguntasPath,require('../routes/preguntas'));
   }
 
   listen() {

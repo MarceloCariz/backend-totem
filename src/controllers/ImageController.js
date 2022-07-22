@@ -75,8 +75,13 @@ const actualizarImagen = async(req, resp) => {
 }
 
 const obtenerImagenes = async(req, resp)=>{
-    const image = await Image.find();
-    resp.json(image)
+    try {
+        const image = await Image.find();
+        resp.json(image)
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 module.exports = {
     subirImagen,
