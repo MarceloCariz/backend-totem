@@ -1,6 +1,12 @@
 const express = require('express');
 const { model } = require('mongoose');
-const { searchPreguntas, obtenerPreguntas, aumentarRanking, evaluacionPregunta } = require('../controllers/PreguntasController');
+const { 
+    searchPreguntas,
+    obtenerPreguntas, 
+    aumentarRanking, 
+    evaluacionPregunta,
+    guardarPregunta
+} = require('../controllers/PreguntasController');
 
 
 
@@ -11,6 +17,7 @@ PreguntaRouter.get('/', obtenerPreguntas);
 PreguntaRouter.get('/search/', searchPreguntas);
 PreguntaRouter.post('/evaluacion', evaluacionPregunta)
 PreguntaRouter.put('/ranking/:id', aumentarRanking);
+PreguntaRouter.post('/save/', guardarPregunta);
 
 
 

@@ -59,9 +59,44 @@ const evaluacionPregunta = async(req=request, resp=response) =>{
 }
 
 
+
+const guardarPregunta = async(req=request, resp=response) => {
+
+    try {
+        const {
+            pregunta,
+            respuesta,
+            categoria,
+            subcategoria,
+            ranking
+        } = req.body;
+    
+        const nuevaPregunta = new Pregunta({
+            pregunta,
+            respuesta,
+            categoria,
+            subcategoria,
+            ranking
+        });
+
+        await nuevaPregunta.save();
+
+        return resp.status(201).json({msg: "Pregunta guardar con exito!"});
+        
+    } catch (error) {
+        return resp.status(500).json({msg: "Error al guardar pregunta!"});
+    }
+    
+
+    
+
+
+};
+
 module.exports = {
     obtenerPreguntas,
     searchPreguntas,
     aumentarRanking,
-    evaluacionPregunta
+    evaluacionPregunta,
+    guardarPregunta
 }
