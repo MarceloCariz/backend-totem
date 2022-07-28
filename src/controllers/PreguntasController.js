@@ -45,9 +45,9 @@ const aumentarRanking = async(req=request, resp=response) =>{
  
 const evaluacionPregunta = async(req=request, resp=response) =>{
     const evaluacionPregunta = new  Evaluacion();
-    const {pregunta, categoria, evaluacion, correo} = req.body;
+    const {problema, categoria, evaluacion, correo} = req.body;
     try {
-        evaluacionPregunta.problema = pregunta;
+        evaluacionPregunta.problema = problema;
         evaluacionPregunta.categoria = categoria;
         evaluacionPregunta.evaluacion = evaluacion;
         evaluacionPregunta.correo = correo;
