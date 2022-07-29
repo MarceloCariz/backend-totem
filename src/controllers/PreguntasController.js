@@ -6,7 +6,7 @@ const Pregunta = require('../models/Pregunta');
 
 const obtenerPreguntas = async(req = request, resp=response) =>{
     try {
-        const preguntas = await Pregunta.find();
+        const preguntas = await Pregunta.find().sort({ranking: -1});
         resp.json(preguntas);
     } catch (error) {
         console.log(error)
