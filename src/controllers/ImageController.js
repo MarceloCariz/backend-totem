@@ -41,15 +41,7 @@ const actualizarImagen = async(req, resp) => {
     try {
         const {id} = req.params;
         const image = await Image.findById(id);
-        // const image = await Image.findByIdAndUpdate(
-        //     {
-        //         _id: id,
-        //         title: req.body.title || image.title,
-        //         active: req.body.active || image.active,
-        //         filename: req.file.filename || image.file.filename,
-        //         path: `${process.env.HOST}/img/uploads/ + req.file.filename` || image.path,
-        //     }
-        // );
+   
 
         if(req.file){
             image.path = `${process.env.HOST}/img/uploads/` + req.file.filename;

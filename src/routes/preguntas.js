@@ -5,7 +5,8 @@ const {
     obtenerPreguntas, 
     aumentarRanking, 
     evaluacionPregunta,
-    guardarPregunta
+    guardarPregunta,
+    actualizarPregunta
 } = require('../controllers/PreguntasController');
 
 
@@ -16,8 +17,9 @@ const PreguntaRouter = express.Router();
 PreguntaRouter.get('/', obtenerPreguntas);
 PreguntaRouter.get('/search/', searchPreguntas);
 PreguntaRouter.post('/evaluacion', evaluacionPregunta)
-PreguntaRouter.put('/ranking/:id', aumentarRanking);
 PreguntaRouter.post('/save/', guardarPregunta);
+PreguntaRouter.put('/ranking/:id', aumentarRanking);
+PreguntaRouter.put('/update/:id' , actualizarPregunta);
 
 
 

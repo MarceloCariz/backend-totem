@@ -14,6 +14,51 @@ const obtenerPreguntas = async(req = request, resp=response) =>{
 
 }
 
+const actualizarPregunta = async(req=request, resp=response) =>{
+    try {
+        const {id} = req.params;
+        const nuevaPregunta = {
+            ...req.body,
+        }
+
+        const preguntaActualizada = await Pregunta.findByIdAndUpdate(id, nuevaPregunta,{new: true});
+        resp.json({
+            ok: true,
+            pregunta: preguntaActualizada
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+const guardarPregunta = async(req=request, resp=response) => {
+
+    try {
+        const {
+            pregunta,
+            respuesta,
+            categoria,
+            subcategoria,
+            ranking
+        } = req.body;
+    
+        const nuevaPregunta = new Pregunta({
+            pregunta,
+            respuesta,
+            categoria,
+            subcategoria,
+            ranking
+        });
+
+        await nuevaPregunta.save();
+
+        return resp.status(201).json({msg: "Pregunta guardar con exito!"});
+        
+    } catch (error) {
+        return resp.status(500).json({msg: "Error al guardar pregunta!"});
+    }
+    
+};
+
 const searchPreguntas = async(req = request, resp=response) =>{
     const search = req.query.q;
     try {
@@ -42,7 +87,7 @@ const aumentarRanking = async(req=request, resp=response) =>{
         console.log(error)
     }
 }
- 
+
 const evaluacionPregunta = async(req=request, resp=response) =>{
     const evaluacionPregunta = new  Evaluacion();
     const {problema, categoria, evaluacion, correo} = req.body;
@@ -58,45 +103,11 @@ const evaluacionPregunta = async(req=request, resp=response) =>{
     }
 }
 
-
-
-const guardarPregunta = async(req=request, resp=response) => {
-
-    try {
-        const {
-            pregunta,
-            respuesta,
-            categoria,
-            subcategoria,
-            ranking
-        } = req.body;
-    
-        const nuevaPregunta = new Pregunta({
-            pregunta,
-            respuesta,
-            categoria,
-            subcategoria,
-            ranking
-        });
-
-        await nuevaPregunta.save();
-
-        return resp.status(201).json({msg: "Pregunta guardar con exito!"});
-        
-    } catch (error) {
-        return resp.status(500).json({msg: "Error al guardar pregunta!"});
-    }
-    
-
-    
-
-
-};
-
 module.exports = {
     obtenerPreguntas,
     searchPreguntas,
     aumentarRanking,
     evaluacionPregunta,
-    guardarPregunta
+    guardarPregunta,
+    actualizarPregunta
 }
