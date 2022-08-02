@@ -1,6 +1,5 @@
 const { request, response } = require("express");
 const Image = require("../models/Image");
-const sharp = require("sharp");
 // const multer = require('multer');
 
 const subirImagen = async (req, resp) => {
