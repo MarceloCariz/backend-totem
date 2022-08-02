@@ -18,6 +18,7 @@ class Server {
     this.preguntasPath = "/api/preguntas";
     this.examsPath = "/api/exams";
     this.imagenPath = "/api/imagenes";
+    this.evaluacionPath = '/api/evaluacion';
 
     //db
     this.connection();
@@ -50,6 +51,7 @@ class Server {
     this.app.use(this.examsPath, require("../routes/exams"));
     this.app.use(this.imagenPath, require("../routes/image"));
     this.app.use(this.preguntasPath,require('../routes/preguntas'));
+    this.app.use(this.evaluacionPath, require('../routes/evaluacion'));
   }
 
   listen() {
