@@ -19,6 +19,7 @@ class Server {
     this.examsPath = "/api/exams";
     this.imagenPath = "/api/imagenes";
     this.evaluacionPath = '/api/evaluacion';
+    this.alumnosPath = '/api/alumnos';
 
     //db
     this.connection();
