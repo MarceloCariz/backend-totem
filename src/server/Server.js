@@ -53,6 +53,7 @@ class Server {
     this.app.use(this.imagenPath, require("../routes/image"));
     this.app.use(this.preguntasPath,require('../routes/preguntas'));
     this.app.use(this.evaluacionPath, require('../routes/evaluacion'));
+    this.app.use(this.alumnosPath, require('../routes/alumnos'));
   }
 
   listen() {

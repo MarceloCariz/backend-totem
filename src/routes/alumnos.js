@@ -1,8 +1,11 @@
 const {Router} = require('express');
 const {
-    findYourTeacher
+    findYourTeacher, findTeacherByName
 } = require('../controllers/EncuentraDocenteController');
 
 const alumnoRouter = Router();
 
-alumnoRouter.get('/', );
+alumnoRouter.get('/', findYourTeacher);
+alumnoRouter.get('/teacher', findTeacherByName);
+
+module.exports = alumnoRouter;
