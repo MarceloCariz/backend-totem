@@ -44,7 +44,12 @@ class Server {
       },
     });
     this.app.use(multer({ storage: storage }).single("image"));
+
     this.app.use(express.static(path.join(__dirname, "public")));
+
+
+    
+
   }
 
   routes() {
