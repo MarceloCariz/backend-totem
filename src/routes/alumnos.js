@@ -5,7 +5,7 @@ const {
 
 const alumnoRouter = Router();
 
-alumnoRouter.get('/', findYourTeacher);
+alumnoRouter.get('/:rut', findYourTeacher);
 alumnoRouter.get('/teacher', findTeacherByName);
 
 module.exports = alumnoRouter;
