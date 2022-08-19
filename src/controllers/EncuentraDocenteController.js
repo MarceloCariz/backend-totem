@@ -27,20 +27,17 @@ const findYourTeacher = async(req=request, resp=response) => {
 };
 
 const findTeacherByName = async(req=request, res=response) => {
-
     try {
         const {nombredocente = ''} = req.query;
 
-        
         if (nombredocente != null){
-            docente = await Docente.find({nombre_docente: nombredocente});
-
+            
+            const resultado = await Docente.find({nombre_docente: nombredocente}).select('Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miercoles Jueves Viernes ')
+    
             return res.status(200).json({
-                docente
+                docente: resultado[0]
             });
         }
-
-        
 
     } catch (error) {
         console.error(error);
@@ -52,4 +49,5 @@ const findTeacherByName = async(req=request, res=response) => {
 module.exports = {
     findYourTeacher,
     findTeacherByName
+
 };
