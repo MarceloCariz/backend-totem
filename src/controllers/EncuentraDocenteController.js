@@ -3,15 +3,18 @@ const Alumno = require('../models/Alumno');
 const Docente = require('../models/Docente');
 
 const findYourTeacher = async(req=request, resp=response) => {
-
+    let date = new Date(Date.now());
+    // let date = new Date('2022-08-28'); simular fecha
+    date = date.toLocaleDateString('es-MX',{weekday: 'long'});
+    date = (date.replace(/^\w/, (c) => c.toUpperCase()));
     try {
         const {rut} = req.params;
         const alumno = await Alumno.find({'Rut_Alumno': rut}).select('Codigo_Seccion Nombre_Alumno Apellido_Paterno_Alumno Apellido_Materno_Alumno');
 
         const resultado = await Promise.all(alumno.map(async(alumno)=>(
-            await Docente.find({Seccion: alumno.Codigo_Seccion}).select('Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miercoles Jueves Viernes ')
+            await Docente.find({Seccion: alumno.Codigo_Seccion}).where(`${date}`).equals('X').select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miércoles Jueves Viernes Sábado  `)
         )))
-        // 199956736
+        // 199956736-Lunes  192417082-Sabado  151640419-Lunes 19649815K-Martes,Jueves
 
     //     const sala = resultado[0].map(({Aula})=>(Aula))
     //     // const sala =resultado.some(({Aula})=>console.log(Aula));
@@ -31,12 +34,26 @@ const findTeacherByName = async(req=request, res=response) => {
         const {nombredocente = ''} = req.query;
 
         if (nombredocente != null){
-            
-            const resultado = await Docente.find({nombre_docente: nombredocente}).select('Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miercoles Jueves Viernes ')
+            let date = new Date(Date.now());
+            // simular fecha
+            // let date = new Date('2022-08-24'); 
+
+            date = date.toLocaleDateString('es-MX',{weekday: 'long'});
+            date = (date.replace(/^\w/, (c) => c.toUpperCase()));
+            // console.log(date)
+            // select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miercoles Jueves Viernes  `)
+            const resultado = await Docente.find({nombre_docente: nombredocente}).where(`${date}`).equals('X').select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miércoles Jueves Viernes Sábado  `)
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              };
     
-            return res.status(200).json({
-                docente: resultado[0]
-            });
+        return res.status(200).json({
+                docente: resultado,
+                date
+        });
         }
 
     } catch (error) {
