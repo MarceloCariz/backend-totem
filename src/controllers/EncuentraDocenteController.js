@@ -37,12 +37,13 @@ const findTeacherByName = async(req=request, res=response) => {
             let date = new Date(Date.now());
             // simular fecha
             // let date = new Date('2022-08-24'); 
-
+            const regex = new RegExp(nombredocente, 'i');
+            // const preguntas = await Pregunta.find({'pregunta': {$regex: regex}});
             date = date.toLocaleDateString('es-MX',{weekday: 'long'});
             date = (date.replace(/^\w/, (c) => c.toUpperCase()));
             // console.log(date)
             // select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miercoles Jueves Viernes  `)
-            const resultado = await Docente.find({nombre_docente: nombredocente}).where(`${date}`).equals('X').select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miércoles Jueves Viernes Sábado  `)
+            const resultado = await Docente.find({nombre_docente: {$regex: regex}}).where(`${date}`).equals('X').select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miércoles Jueves Viernes Sábado  `)
             let options = {
                 weekday: 'long',
                 year: 'numeric',
