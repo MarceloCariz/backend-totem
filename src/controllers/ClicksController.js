@@ -6,7 +6,10 @@ const Click = require("../models/Click");
 const guardarClick = async(req=request, res=response) => {
     try {
         const {idVista, nombreVista} = req.body;
-        const clickToSave = new Click({idVista, nombreVista});
+
+        const fecha = Date.now();
+
+        const clickToSave = new Click({idVista, nombreVista, fecha});
 
         await clickToSave.save()
         return res.status(201).json({msg: "click to save successfully"});
