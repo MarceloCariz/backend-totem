@@ -20,6 +20,7 @@ class Server {
     this.imagenPath = "/api/imagenes";
     this.evaluacionPath = '/api/evaluacion';
     this.alumnosPath = '/api/alumnos';
+    this.clickPath = "/api/click";
 
     //db
     this.connection();
@@ -59,6 +60,7 @@ class Server {
     this.app.use(this.preguntasPath,require('../routes/preguntas'));
     this.app.use(this.evaluacionPath, require('../routes/evaluacion'));
     this.app.use(this.alumnosPath, require('../routes/alumnos'));
+    this.app.use(this.clickPath, require("../routes/clicks"));
   }
 
   listen() {
