@@ -7,9 +7,7 @@ const guardarClick = async(req=request, res=response) => {
     try {
         const {idVista, nombreVista} = req.body;
 
-        const fecha = Date.now();
-
-        const clickToSave = new Click({idVista, nombreVista, fecha});
+        const clickToSave = new Click({idVista, nombreVista});
 
         await clickToSave.save()
         return res.status(201).json({msg: "click to save successfully"});
