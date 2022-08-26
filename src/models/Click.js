@@ -11,8 +11,7 @@ const Click = new Schema({
         required: true
     },
     fecha: {
-        type: Date,
-        default: Date.now(),
+        type: String,
         required: true
     }
 });
