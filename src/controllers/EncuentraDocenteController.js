@@ -46,25 +46,25 @@ const findTeacherByName = async(req=request, res=response) => {
             const resultado = await Docente.find({nombre_docente: {$regex: regex}}).where(`${date}`).equals('X').select(`Aula Nom_Asignatura nombre_docente HorInic Final Lunes Martes Miércoles Jueves Viernes Sábado  `)
 
         
-        let nuevoDocentes = [];
+        // let nuevoDocentes = [];
 
-        resultado.map( (docente, index) => {
+        // resultado.map( (docente, index) => {
             
-            if (docente.Aula?.length > 1 && docente.Aula?.substring(0, 3) == "AV-"){
-                console.log(`${docente.nombre_docente} - ${docente.Aula}`);
+        //     if (docente.Aula?.length > 1 && docente.Aula?.substring(0, 3) == "AV-"){
+        //         console.log(`${docente.nombre_docente} - ${docente.Aula}`);
 
-                nuevoDocentes.push(docente);
+        //         nuevoDocentes.push(docente);
 
-            }
+        //     }
 
-        });
+        // });
 
     
-        return res.status(200).json({
-                docente: nuevoDocentes,
-                date
-        });
-        }
+        // return res.status(200).json({
+        //         docente: nuevoDocentes,
+        //         date
+        // });
+        // }
 
     } catch (error) {
         console.error(error);
