@@ -72,9 +72,23 @@ const findTeacherByName = async(req=request, res=response) => {
 
 };
 
+const uploadDocente = (req=request, res=response) => {     
+
+    try {
+
+        const docente = req.body;
+
+        return res.status(200).json(docente);
+
+    } catch (error) {
+        console.error(error);
+    }
+
+}   
 
 module.exports = {
     findYourTeacher,
-    findTeacherByName
+    findTeacherByName,
+    uploadDocente
 
 };
