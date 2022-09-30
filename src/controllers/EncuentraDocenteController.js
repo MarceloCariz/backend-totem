@@ -73,12 +73,57 @@ const findTeacherByName = async(req=request, res=response) => {
 };
 
 const uploadDocente = (req=request, res=response) => {     
-
     try {
 
         const docente = req.body;
 
-        return res.status(200).json(docente);
+        docente.map(async (doc) => {
+            const newDocente = new Docente({
+                Nombre_Asignatura: doc.Nombre_Asignatura,
+                nombre_docente: doc.nombre_docente,
+                Aula: doc.Aula,
+                HorInic: doc.HorInic,
+                Final: doc.Final,
+                Lunes: doc?.Lunes,
+                Martes: doc?.Martes,
+                Miércoles: doc?.Miércoles,
+                Jueves: doc?.Jueves,
+                Viernes: doc?.Viernes,
+                Sábado: doc?.Sábado,
+            });
+
+            await newDocente.save();
+        })
+
+        return res.status(200).json({msg: "Docentes guardados!"});
+
+    } catch (error) {
+        console.error(error);
+    }
+
+}   
+
+const uploadAlumno = (req=request, res=response) => {     
+    try {
+
+        const alumno = req.body;
+
+        console.log(alumno);
+
+        alumno.map(async (alu) => {
+            const newAlumno = new Alumno({
+                Rut_Alumno: alu.Rut_Alumno,
+                Codigo_Seccion: alu.Codigo_Seccion,
+                Nombre_Asignatura: alu.Nombre_Asignatura,
+                Nombre_Alumno: alu.Nombre_Alumno,
+                Apellido_Paterno_Alumno: alu.Apellido_Paterno_Alumno,
+                Apellido_Materno_Alumno: alu.Apellido_Materno_Alumno
+            });
+
+            await newAlumno.save();
+        })
+
+        return res.status(200).json({msg: "Alumnos guardados!"});
 
     } catch (error) {
         console.error(error);
@@ -89,6 +134,7 @@ const uploadDocente = (req=request, res=response) => {
 module.exports = {
     findYourTeacher,
     findTeacherByName,
-    uploadDocente
+    uploadDocente,
+    uploadAlumno
 
 };
