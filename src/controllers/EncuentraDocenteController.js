@@ -96,7 +96,7 @@ const uploadDocente = (req=request, res=response) => {
             await newDocente.save();
         })
 
-        return res.status(200).json({msg: "Docentes guardados!"});
+        return res.status(200).json({msg: "Docentes guardados!", docente});
 
     } catch (error) {
         console.error(error);
@@ -124,7 +124,7 @@ const uploadAlumno = (req=request, res=response) => {
             await newAlumno.save();
         })
 
-        return res.status(200).json({msg: "Alumnos guardados!"});
+        return res.status(200).json({msg: "Alumnos guardados!", alumno});
 
     } catch (error) {
         console.error(error);
