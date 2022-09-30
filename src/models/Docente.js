@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose');
 const Docente = new Schema({
     // nombre_seccion: {type: String},
     // rut_docente: {type: String},
-    // Seccion: {type: String},
+    Seccion: {type: String},
     Nombre_Asignatura: {type: String},
     nombre_docente: {type: String},
     Aula: {type: String},
