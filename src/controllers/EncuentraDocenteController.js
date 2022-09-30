@@ -90,6 +90,7 @@ const uploadDocente = (req=request, res=response) => {
                 Jueves: doc?.Jueves,
                 Viernes: doc?.Viernes,
                 Sábado: doc?.Sábado,
+                Seccion: doc?.Seccion
             });
 
             await newDocente.save();
